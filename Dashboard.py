@@ -8,7 +8,7 @@ st.set_page_config(page_title="Superstore Dashboard",page_icon="📊",layout="wi
 
 @st.cache_data(ttl=600)
 def load_data():
-    df=pd.read_csv(r"C:\Super Store\output\superstore_clean.csv",parse_dates=["Order Date","Ship Date"])
+    df=pd.read_csv("data\superstore_clean.csv",parse_dates=["Order Date","Ship Date"])
     return df
 
 
@@ -59,7 +59,7 @@ with tab1:
 
 with tab2:
      filtered=df.copy()
-     top10=filtered.groupby("sub_category")['Sales'].sum().nlargest(10).sort_values()
+     top10=filtered.groupby("Sub_category")['Sales'].sum().nlargest(10).sort_values()
      fig,ax=plt.subplots(figsize=(7,4))
      bars=ax.barh(top10.index,top10.values,color="#80F63B")
      ax.bar_label(bars,fmt="$%.0f",padding=4,fontsize=8)
@@ -69,10 +69,10 @@ with tab2:
      st.pyplot(fig)
      plt.close(fig)
      st.subheader("Sub-category breakdown")
-     summary=filtered.groupby("sub_category").agg(Sales=("Sales","sum"),profit=("Profit","sum")).sort_values("Sales",ascending=False)
+     summary=filtered.groupby("Sub_category").agg(Sales=("Sales","sum"),profit=("Profit","sum")).sort_values("Sales",ascending=False)
      st.dataframe(summary.style.format("${:,.0f}"),use_container_width=True)
      st.header("Sales vs Profit")
-     fig=px.scatter(df,x="Sales",y="Profit",color="Category",size="Quantity",hover_data=["sub_category"],title="Plotly scatter Sales vs Profit")
+     fig=px.scatter(df,x="Sales",y="Profit",color="Category",size="Quantity",hover_data=["Sub_category"],title="Plotly scatter Sales vs Profit")
      st.plotly_chart(fig,use_container_width=True)
 with tab3:
      st.subheader("Profit Share by Region")
@@ -104,4 +104,4 @@ with tab4:
 st.markdown("---")
 min_year=filtered["Order Year"].min()
 max_year=filtered["Order Year"].max()
-st.caption(f"Showing {len(filtered):,}rows-{min_year}-{max_year}.Built by Fathimath Safa")
+st.caption(f"Showing {len(filtered):,}rows-{min_year}-{max_year}.Built by Fathimath Safa")g
