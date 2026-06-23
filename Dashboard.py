@@ -104,4 +104,4 @@ with tab4:
 st.markdown("---")
 min_year=filtered["Order Year"].min()
 max_year=filtered["Order Year"].max()
-st.caption(f"Showing {len(filtered):,}rows-{min_year}-{max_year}.Built by Fathimath Safa")g
+st.caption(f"Showing {len(filtered):,}rows-{min_year}-{max_year}.Built by Fathimath Safa")
